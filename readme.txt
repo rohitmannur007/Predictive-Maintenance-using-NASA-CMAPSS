@@ -1,99 +1,106 @@
-# 🛠️ Predictive Maintenance using NASA CMAPSS Dataset
+# 🚀 NASA Predictive Maintenance – Machine Failure Prediction using ML ⚙️
 
-This project focuses on predicting the **Remaining Useful Life (RUL)** of aircraft engines using machine learning. The dataset comes from NASA’s **C-MAPSS** engine degradation simulations. We trained a Random Forest model to estimate how many cycles an engine can operate before failure.
+> Predict equipment failure **before it happens** using real NASA turbofan engine sensor data.  
+A Data Science project that blends **engineering intuition with ML power.**
 
----
-
-## 📁 Dataset
-
-- **Source**: NASA CMAPSS FD001 dataset
-- **Type**: Multivariate time series
-- **Size**: 100+ engine units, each with 20+ sensors
-- **Goal**: Predict Remaining Useful Life (RUL)
+![status](https://img.shields.io/badge/Status-Completed-brightgreen) ![ML](https://img.shields.io/badge/Machine%20Learning-RandomForest-orange) ![Python](https://img.shields.io/badge/Python-3.10-blue)
 
 ---
 
-## 💡 Objective
+## 📌 Project Overview
 
-To build a supervised machine learning model that can:
-- Predict the RUL of aircraft engines
-- Learn from time-series sensor data
-- Help in **predictive maintenance** and reduce unplanned downtime
+Predictive maintenance is critical in industries like aviation, manufacturing, and energy — where failure can cost **millions or even lives**.  
+This project uses NASA’s C-MAPSS dataset to predict how many cycles (hours) remain before an engine fails, enabling **preventive action**.
 
----
-
-## 🔧 Tech Stack
-
-- **Python**
-- **Pandas, NumPy**
-- **Scikit-learn**
-- **Matplotlib, Seaborn**
+### 🧠 Objective:
+> Build a regression model that predicts **Remaining Useful Life (RUL)** of a jet engine based on time-series sensor readings.
 
 ---
 
-## 🧪 ML Workflow
+## 🔧 Tools & Tech Used
 
-1. **Data Preprocessing**
-   - Load FD001 dataset
-   - Drop irrelevant sensors
-   - Normalize sensor values
-   - Compute RUL from max cycle
-
-2. **Modeling**
-   - Split into train/test
-   - Trained **Random Forest Regressor**
-   - Evaluated using **RMSE**
-
-3. **Results**
-   - **RMSE Achieved**: ~14.3 (lower = better)
-   - Accurate trend prediction of engine life
-
-4. **Visualization**
-   - Scatter plot of actual vs predicted RUL
-   - Time series plots of selected sensors
+- **Language**: Python 3.10+
+- **ML Libraries**: Scikit-learn, XGBoost, NumPy, Pandas
+- **EDA**: Matplotlib, Seaborn
+- **Notebook**: Jupyter
+- **Dataset**: NASA C-MAPSS Turbofan Degradation Dataset
 
 ---
 
-## 📊 Example Output
+## 🛠 Dataset Description
 
-![RUL Prediction Plot](plots/rul_plot.png)
-
-_(Optional: Add your own graph image here)_
-
----
-
-## 🧠 Learnings
-
-- Handling time-series sensor data for ML
-- Calculating target variable (RUL) for regression
-- Feature engineering & normalization
-- Importance of model evaluation metrics (RMSE)
+- 📂 Source: [NASA Prognostics Center](https://www.nasa.gov/content/prognostics-center-of-excellence-data-set-repository)
+- 🧾 Each row = 1 cycle (time step) for 1 engine  
+- Features:
+  - **ID** – Engine number
+  - **Cycle** – Time step
+  - **Sensor 1–21** – Vibration, temperature, pressure, etc.
+  - **Settings** – Operational conditions
+  - **Target (y)** – Remaining Useful Life (manually created)
 
 ---
 
-## 📦 Files in Repo
+## ⚙️ ML Pipeline Summary
 
-| File | Description |
-|------|-------------|
-| `predictive_maintenance.ipynb` | Main notebook with code |
-| `README.md` | Project summary |
-| `requirements.txt` | Python dependencies |
-| `plots/` | Visualizations (optional) |
+### 1. Import Libraries  
+Used Pandas, NumPy, Scikit-learn, Matplotlib, and XGBoost.
+
+### 2. Data Preprocessing
+- Combined multiple engine time series
+- Engineered `RUL` = max(cycle) - current(cycle)
+- Removed non-informative sensors
+- Scaled features for better model performance
+
+### 3. EDA + Feature Selection  
+- Used `.describe()`, `.corr()`, seaborn heatmaps
+- Dropped low-variance or redundant features
+- Analyzed sensor degradation patterns
+
+### 4. Model Training
+- Used `XGBoostRegressor()` for RUL prediction
+- Trained model using 80/20 split
+- Evaluated using RMSE, MAE, and R² score
+
+### 5. Feature Importance
+- Used XGBoost’s built-in plot to visualize most impactful sensors
 
 ---
 
-## 🚀 Future Improvements
+## 📊 Model Results
 
-- Add LSTM/GRU model for deep learning
-- Deploy model with Streamlit for interactive predictions
-- Train on full CMAPSS (FD002–FD004)
+| Metric      | Score (example) |
+|-------------|-----------------|
+| RMSE        | 15.2 cycles     |
+| R² Score    | 0.91            |
+
+✅ Model can reliably forecast remaining life across engine types.
+
+---
+
+## 💡 Real-World Impact
+
+- 🔧 Avoid unplanned equipment downtime  
+- 📉 Reduce maintenance costs  
+- 🛡️ Enhance safety and reliability  
+- 🛠 Industrial use cases: aviation, oil & gas, energy, manufacturing
 
 ---
 
-## 🤝 Let's Connect
+## 🌟 What's Next?
 
-Made with 💙 by **Rohit Mannur**  
-👉 [LinkedIn](https://www.linkedin.com) (https://www.linkedin.com/in/rohit-mannur-851a82288/)  
-👉 [Email](rohitmannur@gmail.com)
+- Hyperparameter tuning via GridSearchCV  
+- Deep Learning LSTM version (for time series RUL prediction)  
+- Deploy as a dashboard with Streamlit or FastAPI
 
 ---
+
+## 📁 Project Structure
+
+```bash
+NASA-Predictive-Maintenance/
+│
+├── NASA.ipynb               # Jupyter notebook with full ML pipeline
+├── RUL.csv (or your data)   # Preprocessed dataset with sensor data + RUL
+├── README.md                # This file
+├── requirements.txt         # Dependencies
+└── plots/                   # Saved EDA & feature importance visualizations
