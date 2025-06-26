@@ -1,106 +1,59 @@
-# 🚀 NASA Predictive Maintenance – Machine Failure Prediction using ML ⚙️
+# 🚀 NASA Predictive Maintenance – Predict Machine Failure Like a Rocket Scientist! 🛠️🔬
 
-> Predict equipment failure **before it happens** using real NASA turbofan engine sensor data.  
-A Data Science project that blends **engineering intuition with ML power.**
+> ✨ Real sensor data from **NASA turbofan engines** meets cutting-edge ML — predicting failures **before they happen**.
 
-![status](https://img.shields.io/badge/Status-Completed-brightgreen) ![ML](https://img.shields.io/badge/Machine%20Learning-RandomForest-orange) ![Python](https://img.shields.io/badge/Python-3.10-blue)
-
----
-
-## 📌 Project Overview
-
-Predictive maintenance is critical in industries like aviation, manufacturing, and energy — where failure can cost **millions or even lives**.  
-This project uses NASA’s C-MAPSS dataset to predict how many cycles (hours) remain before an engine fails, enabling **preventive action**.
-
-### 🧠 Objective:
-> Build a regression model that predicts **Remaining Useful Life (RUL)** of a jet engine based on time-series sensor readings.
+![Python](https://img.shields.io/badge/Python-3.10-blue?style=for-the-badge&logo=python) 
+![XGBoost](https://img.shields.io/badge/XGBoost-Regressor-orange?style=for-the-badge&logo=xgboost)
+![Machine Learning](https://img.shields.io/badge/Machine%20Learning-Predictive%20Maintenance-green?style=for-the-badge&logo=scikit-learn)
+![Status](https://img.shields.io/badge/Status-COMPLETE-success?style=for-the-badge)
 
 ---
 
-## 🔧 Tools & Tech Used
+## 🧠 What’s This Project About?
 
-- **Language**: Python 3.10+
-- **ML Libraries**: Scikit-learn, XGBoost, NumPy, Pandas
-- **EDA**: Matplotlib, Seaborn
-- **Notebook**: Jupyter
-- **Dataset**: NASA C-MAPSS Turbofan Degradation Dataset
+**Mission:** Predict how many engine cycles are left before a failure using real-world jet engine sensor data.
 
----
+This project helps engineers and businesses **schedule maintenance smartly**, reduce costs, and prevent unexpected breakdowns — just like NASA does!
 
-## 🛠 Dataset Description
-
-- 📂 Source: [NASA Prognostics Center](https://www.nasa.gov/content/prognostics-center-of-excellence-data-set-repository)
-- 🧾 Each row = 1 cycle (time step) for 1 engine  
-- Features:
-  - **ID** – Engine number
-  - **Cycle** – Time step
-  - **Sensor 1–21** – Vibration, temperature, pressure, etc.
-  - **Settings** – Operational conditions
-  - **Target (y)** – Remaining Useful Life (manually created)
+📈 Problem Type: **Regression (Remaining Useful Life - RUL)**  
+📡 Dataset: NASA’s **CMAPSS** engine degradation dataset  
+💥 Real Impact: Predicting when machines fail → saving time, money, and lives
 
 ---
 
-## ⚙️ ML Pipeline Summary
+## 🧰 Tools & Technologies Used
 
-### 1. Import Libraries  
-Used Pandas, NumPy, Scikit-learn, Matplotlib, and XGBoost.
-
-### 2. Data Preprocessing
-- Combined multiple engine time series
-- Engineered `RUL` = max(cycle) - current(cycle)
-- Removed non-informative sensors
-- Scaled features for better model performance
-
-### 3. EDA + Feature Selection  
-- Used `.describe()`, `.corr()`, seaborn heatmaps
-- Dropped low-variance or redundant features
-- Analyzed sensor degradation patterns
-
-### 4. Model Training
-- Used `XGBoostRegressor()` for RUL prediction
-- Trained model using 80/20 split
-- Evaluated using RMSE, MAE, and R² score
-
-### 5. Feature Importance
-- Used XGBoost’s built-in plot to visualize most impactful sensors
+| Category              | Tools / Libraries                        |
+|-----------------------|------------------------------------------|
+| Programming           | Python (3.10)                            |
+| Data Handling         | Pandas, NumPy                            |
+| Machine Learning      | Scikit-learn, **XGBoost**                |
+| Visualization         | Matplotlib, Seaborn                      |
+| Notebook Environment  | Jupyter / Google Colab                   |
+| Data Source           | [NASA CMAPSS Dataset](https://www.nasa.gov/content/prognostics-center-of-excellence-data-set-repository) |
 
 ---
 
-## 📊 Model Results
+## 🔍 Dataset Overview
 
-| Metric      | Score (example) |
-|-------------|-----------------|
-| RMSE        | 15.2 cycles     |
-| R² Score    | 0.91            |
-
-✅ Model can reliably forecast remaining life across engine types.
-
----
-
-## 💡 Real-World Impact
-
-- 🔧 Avoid unplanned equipment downtime  
-- 📉 Reduce maintenance costs  
-- 🛡️ Enhance safety and reliability  
-- 🛠 Industrial use cases: aviation, oil & gas, energy, manufacturing
+- **Source:** NASA Prognostics Center of Excellence  
+- **Use Case:** Turbofan engine sensor analysis  
+- **Rows:** Each row = one engine reading at one time step  
+- **Important Features:**  
+  - `ID` – Engine number  
+  - `Cycle` – Time steps  
+  - `Sensor 1–21` – Vibration, pressure, temperature, etc.  
+  - `Settings` – Operating conditions  
+  - `Target` – RUL (manually created)
 
 ---
 
-## 🌟 What's Next?
+## 🧪 ML Pipeline Breakdown
 
-- Hyperparameter tuning via GridSearchCV  
-- Deep Learning LSTM version (for time series RUL prediction)  
-- Deploy as a dashboard with Streamlit or FastAPI
-
----
-
-## 📁 Project Structure
-
-```bash
-NASA-Predictive-Maintenance/
-│
-├── NASA.ipynb               # Jupyter notebook with full ML pipeline
-├── RUL.csv (or your data)   # Preprocessed dataset with sensor data + RUL
-├── README.md                # This file
-├── requirements.txt         # Dependencies
-└── plots/                   # Saved EDA & feature importance visualizations
+### 1️⃣ Import Libraries
+```python
+import pandas as pd
+import numpy as np
+from xgboost import XGBRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score
